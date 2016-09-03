@@ -33,8 +33,9 @@ value = [v for k,v in word_count.iteritems() if v>10]
 
 to_consider_pairs = [k for k, v in data.iteritems() if v > 10 ]
 print to_consider_pairs
-source = map(lambda x: x[0], to_consider_pairs)
-target = map(lambda x: x[1:], to_consider_pairs)
+unpacked = [item for sublist in to_consider_pairs for item in sublist]
+source = unpacked[0::2]
+target = unpacked[1::2]
 
 
 print ([v for k, v in data.iteritems() if v > 10 ])
@@ -63,7 +64,7 @@ opFile["links"] = links
 json_data = json.dumps(opFile)
 
 
-with open('data.txt', 'w') as outfile:
+with open('data.json', 'w') as outfile:
     json.dump(json_data, outfile)
 
 
