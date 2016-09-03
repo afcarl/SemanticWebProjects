@@ -32,7 +32,7 @@ with open(PIK, "r") as f:
 
 
 stories = []
-for link in all_links[:]:
+for link in all_links[:20]:
 	# read those links and scrape them - appending BF link before
 	r = urllib.urlopen("https://www.buzzfeed.com"+link)
 	# specify encoding as there are many non ascii chars can be present
