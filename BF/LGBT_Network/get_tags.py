@@ -16,7 +16,7 @@ import string
 import collections
 import itertools
 
-PIK = "pickle1.dat"
+PIK = "contentScraped.dat"
 
 def get_tags(contains_tags):
 	"""
@@ -53,7 +53,8 @@ with open(PIK, "r") as f:
 
 document_tags = []
 
-for i in range(20):
+
+for i in range(len(data)):
 	#print i
 	#print type(data[i])
 	elems = data[i].split("Check out more articles on BuzzFeed.com!")
@@ -61,7 +62,14 @@ for i in range(20):
 	
 tags = map(lambda x: get_tags(x), document_tags)
 tags = filter(lambda x: x!=[],tags)
-#tags = [item for sublist in tags for item in sublist]
+tags = [item for sublist in tags for item in sublist]
+print len(tags)
+
+counter_per_word = Counter(tags)
+
+with open("counter_per_word.dat", "w") as f:
+	pickle.dump(counter_per_word,f)
+
 
 combinations = []
 
@@ -77,6 +85,12 @@ for tag in tags:
 combinations = [item for sublist in combinations for item in sublist]
 #print combinations
 print '\n'
-print Counter(combinations)
-print len(combinations)
-print len(set(combinations))
+counter_pairs = Counter(combinations)
+
+PIK_Pairs = 'counter_pairs.dat'
+
+with open(PIK_Pairs, "w") as f:
+	pickle.dump(counter_pairs,f)
+
+to_consider_pairs = [k for k, v in Counter(combinations).iteritems() if v > 4 ]
+print to_consider_pairs
